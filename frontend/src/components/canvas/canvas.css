@@ -5,3 +5,12 @@
     /* width: 500px;
     height: 500px; */
 }
+
+#canvasToolbarContainer {
+    border: 1px solid black;
+}
+
+.toolIcon {
+    width: 25px;
+    height: 25px;
+}

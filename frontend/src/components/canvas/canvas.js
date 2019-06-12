@@ -1,6 +1,6 @@
 import React from 'react';
 import './canvas.css';
-
+import Toolbar from './toolbar';
 
 
 class Canvas extends React.Component {
@@ -15,11 +15,14 @@ class Canvas extends React.Component {
         this.drawArea = React.createRef;
         this.state ={
             isDrawing: false,
+            strokeStyle: '#000',
+            lineWidth: 50,
             // lines: Immutable.List(),
         };
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.draw = this.draw.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
+        this.changeStrokeSize = this.changeStrokeSize.bind(this);
     }
 
  
@@ -46,25 +49,35 @@ class Canvas extends React.Component {
         if (this.state.isDrawing) {
         let canvas = document.getElementById('canvas');
         let ctx = canvas.getContext('2d');
-        ctx.strokeStyle = '#BADA55';
+        ctx.strokeStyle = this.state.strokeStyle;
         ctx.lineJoin = 'round';
         ctx.lineCap = 'round';
-        ctx.lineWidth = 10;
+        ctx.lineWidth = this.state.lineWidth;
         ctx.beginPath();
         ctx.moveTo(this.lastX, this.lastY);
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
         [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+        // console.log(ctx);
         }
+
     }
 
+    changeColor(color){
+        this.setState({strokeStyle: color});
+    }
 
-
-
+    changeStrokeSize(size){
+        this.setState({lineWidth: size});
+    }
 
     render() {
         return (
             <div >
+                <Toolbar 
+                    changeColor={this.changeColor}
+                    changeStrokeSize={this.changeStrokeSize}
+                    lineWidth = {this.state.lineWidth}/>
                 <canvas ref={this.drawArea} id='canvas' />
             </div>
         );
