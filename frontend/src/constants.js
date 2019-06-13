@@ -1,6 +1,9 @@
 export const CANVAS_HEIGHT = 400;
 export const CANVAS_WIDTH = 700;
 
+export const WHEEL_INNER_RADIUS = 50;
+export const WHEEL_OUTER_RADIUS = 75;
+
 
 export const COLORS_HASH = {
     1: `hsl(56, 100%, 48%)`,

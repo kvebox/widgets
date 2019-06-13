@@ -6,7 +6,14 @@ class ColorWheel extends React.Component {
     constructor(props) {
         super(props);
         this.drawColorWheel = this.drawColorWheel.bind(this);
+        this.node = React.createRef();
+        this.getColor = this.getColor.bind(this);
     }
+
+    changeColor(color){
+        this.props.changeColor(color);
+    }
+
 
     drawColorWheel() {
         let canvas = document.getElementById('colorWheel');
@@ -24,14 +31,29 @@ class ColorWheel extends React.Component {
         }
     }
 
+    getColor(e) {
+        if (this.node.current.contains(e.target)){
+        let canvas = document.getElementById('colorWheel');
+        let ctx = canvas.getContext('2d');
+        let color = ctx.getImageData(e.offsetX, e.offsetY, 1, 1);
+        let rgba = `rgba(${color.data[0]},${color.data[1]},${color.data[2]},${color.data[3]})`;
+        if (rgba !== 'rgba(0,0,0,0)') this.changeColor(rgba);
+        }
+    }
+
+    componentDidUpdate() {
+        
+    }
+    
     componentDidMount(){
         this.drawColorWheel();
+        document.addEventListener('click', this.getColor);
     }
 
     render() {
         return (
             <div id='colorCanvasHolder'>
-                <canvas id='colorWheel' width='200' height='200'/>
+                <canvas ref={this.node} id='colorWheel' width='200' height='200'/>
             </div>
         )
     }

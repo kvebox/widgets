@@ -13,17 +13,18 @@ class Canvas extends React.Component {
 
         // this.canvas = document.getElementById('canvas');
         // this.ctx = this.canvas.getContext('2d');
-        this.drawArea = React.createRef;
+        this.drawArea = React.createRef();
         this.state ={
             isDrawing: false,
-            strokeStyle: '#000',
-            lineWidth: 50,
+            strokeStyle: `#000`,
+            lineWidth: 10,
             // lines: Immutable.List(),
         };
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.draw = this.draw.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.changeStrokeSize = this.changeStrokeSize.bind(this);
+        this.changeColor = this.changeColor.bind(this);
     }
 
  
@@ -47,7 +48,7 @@ class Canvas extends React.Component {
     }
 
     draw(e){
-        if (this.state.isDrawing) {
+        if (this.state.isDrawing && this.drawArea.current.contains(e.target)) {
         let canvas = document.getElementById('canvas');
         let ctx = canvas.getContext('2d');
         ctx.strokeStyle = this.state.strokeStyle;
@@ -66,6 +67,7 @@ class Canvas extends React.Component {
 
     changeColor(color){
         this.setState({strokeStyle: color});
+        console.log(this.state);
     }
 
     changeStrokeSize(size){
@@ -75,7 +77,8 @@ class Canvas extends React.Component {
     render() {
         return (
             <div >
-                <ColorWheel/>
+                <ColorWheel
+                    changeColor={this.changeColor}/>
                 <Toolbar 
                     changeColor={this.changeColor}
                     changeStrokeSize={this.changeStrokeSize}
