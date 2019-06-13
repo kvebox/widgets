@@ -18,6 +18,7 @@ class Canvas extends React.Component {
             isDrawing: false,
             strokeStyle: `#000`,
             lineWidth: 10,
+            lastDrawColor: '#000'
             // lines: Immutable.List(),
         };
         this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -25,6 +26,7 @@ class Canvas extends React.Component {
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.changeStrokeSize = this.changeStrokeSize.bind(this);
         this.changeColor = this.changeColor.bind(this);
+        this.returnToBrush = this.returnToBrush.bind(this);
     }
 
  
@@ -66,12 +68,26 @@ class Canvas extends React.Component {
     }
 
     changeColor(color){
+        if (color != '#fff'){
+            this.setState({lastDrawColor: color});
+        }
         this.setState({strokeStyle: color});
-        console.log(this.state);
+    }
+
+    returnToBrush(){
+        this.setState({strokeStyle: this.state.lastDrawColor});
     }
 
     changeStrokeSize(size){
         this.setState({lineWidth: size});
+    }
+
+    save(){
+
+    }
+
+    clear(){
+        
     }
 
     render() {
@@ -82,8 +98,11 @@ class Canvas extends React.Component {
                 <Toolbar 
                     changeColor={this.changeColor}
                     changeStrokeSize={this.changeStrokeSize}
+                    returnToBrush={this.returnToBrush}
                     lineWidth = {this.state.lineWidth}/>
                 <canvas ref={this.drawArea} id='canvas' />
+                <button onClick={() => this.save()}>Save</button>
+                <button onClick={() => this.clear()}>Clear</button>
             </div>
         );
     }

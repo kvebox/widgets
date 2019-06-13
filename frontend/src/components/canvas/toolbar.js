@@ -41,12 +41,13 @@ class Toolbar extends React.Component {
                 {(this.state.modal) ? <ToolBrush 
                     lineWidth = {this.props.lineWidth}
                     changeStrokeSize={this.changeStrokeSize}/> : ''}
+
                 <div id='tool_brushSize'>
-                    <img className='toolIcon' src='/favicon.ico'/>
+                    <img onClick={() => this.props.returnToBrush()}className='toolIcon' src='/favicon.ico'/>
                 </div>
 
                 <div id='tool_eraserSize'>
-                    <img className='toolIcon' src='/favicon.ico'/>
+                    <img onClick={() => this.props.changeColor('#fff')} className='toolIcon' src='/favicon.ico'/>
                 </div>
 
                 <div id='tool_undo'>
