@@ -42,7 +42,7 @@ class Canvas extends React.Component {
     }
 
     handleMouseDown(e) {
-        [this.lastX, this.lastY] = [e.offsetX, e.offsetY]
+        [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
         this.setState({ isDrawing: !this.state.isDrawing });
     }
 
