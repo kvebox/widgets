@@ -31,7 +31,21 @@ class ColorWheel extends React.Component {
         }
     }
 
-
+    drawColorWheelSegments() {
+        let canvas = document.getElementById('colorWheel');
+        let ctx = canvas.getContext('2d');
+        for (let i = 0; i <= 12; i++) {
+            ctx.beginPath();
+            let segment = 2 * Math.PI / 12;
+            // in radians
+            // arc path : (x, y, r, sAngle, eAngle, counterclockwise)
+            ctx.fillStyle = COLORS_HASH[i];
+            ctx.moveTo(100, 75);
+            ctx.arc(100, 75, 50, segment * i, segment * i + segment);
+            ctx.lineTo(100, 75);
+            ctx.fill();
+        }
+    }
 
     getColor(e) {
         if (this.node.current.contains(e.target)){
@@ -48,7 +62,8 @@ class ColorWheel extends React.Component {
     }
     
     componentDidMount(){
-        this.drawColorWheel();
+        // this.drawColorWheel();
+        this.drawColorWheelSegments();
         document.addEventListener('click', this.getColor);
     }
 

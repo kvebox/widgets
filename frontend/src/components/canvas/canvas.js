@@ -2,6 +2,7 @@ import React from 'react';
 import './canvas.css';
 import Toolbar from './toolbar';
 import ColorWheel from './colorWheel';
+import {CANVAS_HEIGHT, CANVAS_WIDTH} from '../../constants';
 
 
 class Canvas extends React.Component {
@@ -10,23 +11,30 @@ class Canvas extends React.Component {
 
         this.lastX = 0;
         this.lastY = 0;
-
-        // this.canvas = document.getElementById('canvas');
-        // this.ctx = this.canvas.getContext('2d');
+    
         this.drawArea = React.createRef();
+
+        // canvas drawing style
         this.state ={
             isDrawing: false,
             strokeStyle: `#000`,
             lineWidth: 10,
-            lastDrawColor: '#000'
-            // lines: Immutable.List(),
+            lastDrawColor: '#000',
+            history: [],
+            height: CANVAS_HEIGHT,
+            width: CANVAS_WIDTH
+            // history2: []
         };
+
+        // binding functions
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.draw = this.draw.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.changeStrokeSize = this.changeStrokeSize.bind(this);
         this.changeColor = this.changeColor.bind(this);
         this.returnToBrush = this.returnToBrush.bind(this);
+        this.save = this.save.bind(this);
+        this.undo = this.undo.bind(this);
     }
 
  
@@ -61,6 +69,7 @@ class Canvas extends React.Component {
         ctx.moveTo(this.lastX, this.lastY);
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.stroke();
+        // this.setState({history : (ctx.save())});
         [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
         // console.log(ctx);
         }
@@ -68,7 +77,7 @@ class Canvas extends React.Component {
     }
 
     changeColor(color){
-        if (color != '#fff'){
+        if (color !== '#fff'){
             this.setState({lastDrawColor: color});
         }
         this.setState({strokeStyle: color});
@@ -83,7 +92,23 @@ class Canvas extends React.Component {
     }
 
     save(){
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
+        // this.setState({ history2: this.state.history2.push(ctx.getImageData(0, 0, ctx.canvas.height, ctx.canvas.width))});
+        let saved = ctx.save();
+        console.log(ctx);
+        console.log(saved);
+        console.log(this.state.history);
+        // console.log(saved);
+        // console.log(ctx.restore());
+        // return ctx.save();
+    }
 
+    undo(){
+        let canvas = document.getElementById('canvas');
+        let ctx = canvas.getContext('2d');
+        let saved = ctx.restore(); 
+        console.log(this.state.history);
     }
 
     clear(){
@@ -95,16 +120,23 @@ class Canvas extends React.Component {
     render() {
         return (
             <div >
-                <ColorWheel
-                    changeColor={this.changeColor}/>
+                <div id='canvasLayout'>
+                
                 <Toolbar 
+                    undo={this.undo}
+                    save={this.save}
                     changeColor={this.changeColor}
                     changeStrokeSize={this.changeStrokeSize}
                     returnToBrush={this.returnToBrush}
-                    lineWidth = {this.state.lineWidth}/>
-                <canvas ref={this.drawArea} id='canvas' />
-                <button onClick={() => this.save()}>Save</button>
-                <button onClick={() => this.clear()}>Clear</button>
+                    lineWidth = {this.state.lineWidth}
+                    clear = {this.clear}/>
+                <canvas id='canvas'
+                        ref={this.drawArea} 
+                        height={`${this.state.height}`} 
+                        width={`${this.state.width}`}/>
+                <ColorWheel
+                    changeColor={this.changeColor} />
+                </div>
             </div>
         );
     }
