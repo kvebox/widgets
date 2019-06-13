@@ -1,6 +1,7 @@
 import React from 'react';
 import './canvas.css';
 import Toolbar from './toolbar';
+import ColorWheel from './colorWheel';
 
 
 class Canvas extends React.Component {
@@ -74,6 +75,7 @@ class Canvas extends React.Component {
     render() {
         return (
             <div >
+                <ColorWheel/>
                 <Toolbar 
                     changeColor={this.changeColor}
                     changeStrokeSize={this.changeStrokeSize}
