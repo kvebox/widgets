@@ -27,11 +27,15 @@ class Toolbar extends React.Component {
     }
 
     componentDidMount(){
-        document.addEventListener('click', this.hideModal);
+        // document.addEventListener('click', this.hideModal);
     }
 
     componentDidUpdate(){
-        document.removeEventListener('click', this.hideModal);
+        // document.removeEventListener('click', this.hideModal);
+    }
+
+    showModal(){
+        this.setState({modal: true});
     }
 
 
@@ -43,7 +47,9 @@ class Toolbar extends React.Component {
                     changeStrokeSize={this.changeStrokeSize}/> : ''}
 
                 <div id='tool_brushSize'>
-                    <img onClick={() => this.props.returnToBrush()}className='toolIcon' src='/favicon.ico'/>
+                    <img className='toolIcon' src='/favicon.ico'
+                        onClick={() => {
+                        this.props.returnToBrush()}} />
                 </div>
 
                 <div id='tool_eraserSize'>

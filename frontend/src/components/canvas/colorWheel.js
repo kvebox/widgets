@@ -31,6 +31,8 @@ class ColorWheel extends React.Component {
         }
     }
 
+
+
     getColor(e) {
         if (this.node.current.contains(e.target)){
         let canvas = document.getElementById('colorWheel');
