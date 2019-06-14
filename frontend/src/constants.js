@@ -1,6 +1,8 @@
 export const CANVAS_HEIGHT = 300;
 export const CANVAS_WIDTH = 500;
 
+
+
 export const WHEEL_INNER_RADIUS = 50;
 export const WHEEL_OUTER_RADIUS = 75;
 

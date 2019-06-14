@@ -9,9 +9,21 @@ class Toolbar extends React.Component {
 
         this.state = {
             toolType: '',
-            modal: true
+            modal: true,
+            mode: ''
         };
         this.changeStrokeSize = this.changeStrokeSize.bind(this);
+        // this.changeImage = this.changeImage.bind(this);
+    }
+
+    resetSelect(){
+        document.getElementById('tool_brushSize').setAttribute('src', '/icons/tools_draw.png');
+        document.getElementById('tool_eraser').setAttribute('src', '/icons/tools_erase.png');
+        document.getElementById('tool_undo').setAttribute('src', '/icons/tools_undo.png');
+        document.getElementById('tool_fill').setAttribute('src', '/icons/tools_fill.png');
+        document.getElementById('tool_save').setAttribute('src', '/icons/tools_save.png');
+        document.getElementById('tool_eyedropper').setAttribute('src', '/icons/tools_eyedropper.png');
+        document.getElementById('tool_clear').setAttribute('src', '/icons/tools_clear.png');
     }
 
     changeColor(color){
@@ -27,7 +39,8 @@ class Toolbar extends React.Component {
     }
 
     componentDidMount(){
-        // document.addEventListener('click', this.hideModal);
+        document.getElementById('tool_brushSize').setAttribute('src', '/icons/tools_draw_select.png');
+        this.setState({mode: 'draw'});
     }
 
     componentDidUpdate(){
@@ -38,6 +51,15 @@ class Toolbar extends React.Component {
         this.setState({modal: true});
     }
 
+    changeImage(element, imageLink){
+        let img = document.getElementById(`${element}`);
+        img.setAttribute('src', imageLink);
+    }
+
+    // unHover(element, imageLink){
+    //     element.setAttribute('src', imageLink);
+    // }
+
 
     render() {
         return (
@@ -46,45 +68,80 @@ class Toolbar extends React.Component {
                     lineWidth = {this.props.lineWidth}
                     changeStrokeSize={this.changeStrokeSize}/> : ''}
 
-                <div id='tool_brushSize'>
-                    <img className='toolIcon' src='/icons/tools_draw.png'
+                <div >
+                    <img id='tool_brushSize' className='toolIcon' src='/icons/tools_draw.png'
                         alt='brush'
+                        onMouseOver={(this.state.mode !== 'draw') ?
+                            () => this.changeImage('tool_brushSize', '/icons/tools_draw_hover.png')
+                            : function () {}}
+                        onMouseOut={
+                            (this.state.mode !== 'draw') ? () => this.changeImage('tool_brushSize', '/icons/tools_draw.png') : this.changeImage('tool_brushSize', '/icons/tools_draw_select.png')}
                         onClick={() => {
+                        this.resetSelect()
+                        this.setState({mode: 'draw'});
+                        this.changeImage('tool_brushSize', '/icons/tools_draw_select.png')
                         this.props.returnToBrush()}} />
                 </div>
 
-                <div id='tool_eraser'>
-                    <img className='toolIcon' src='/icons/tools_erase.png'
+                <div >
+                    <img id='tool_eraser' className='toolIcon' src='/icons/tools_erase.png'
                         alt='erase'
-                        onClick={() => this.props.changeColor('#fff')} />
+                        onMouseOver={(this.state.mode !== 'erase') ? 
+                            () => this.changeImage('tool_eraser', '/icons/tools_erase_hover.png')
+                            : function(){}}
+                        onMouseOut={(this.state.mode !== 'erase') ? 
+                            () => this.changeImage('tool_eraser', '/icons/tools_erase.png') 
+                            : this.changeImage('tool_eraser', '/icons/tools_erase_select.png')}
+                        onClick={() => {
+                        this.resetSelect();
+                        this.setState({ mode: 'erase' })
+                        this.changeImage('tool_eraser', '/icons/tools_erase_select.png')
+                        this.props.changeColor('#fff')} }/>
                 </div>
 
-                <div id='tool_eyedropper'>
-                    <img className='toolIcon' src='/icons/tools_eyedropper.png'
+                <div >
+                    <img id='tool_eyedropper' className='toolIcon' src='/icons/tools_eyedropper.png'
                         alt='eyedropper'
+                        onMouseOver={() => this.changeImage('tool_eyedropper', '/icons/tools_eyedropper_hover.png')}
+                        onMouseOut={() => this.changeImage('tool_eyedropper', '/icons/tools_eyedropper.png')}
                          />
                 </div>
 
-                <div id='tool_fill'>
-                    <img className='toolIcon' src='/icons/tools_fill.png'
+                <div >
+                    <img id='tool_fill' className='toolIcon' src='/icons/tools_fill.png'
                         alt='fill'
+                        onMouseOver={() => this.changeImage('tool_fill', '/icons/tools_fill_hover.png')}
+                        onMouseOut={() => this.changeImage('tool_fill', '/icons/tools_fill.png')}
                          />
                 </div>
 
-                <div id='tool_undo'>
-                    <img className='toolIcon' src='/icons/tools_undo.png'
+                <div >
+                    <img id='tool_undo' className='toolIcon' src='/icons/tools_undo.png'
                         alt='undo'
+                        onMouseOver={() => this.changeImage('tool_undo', '/icons/tools_undo_hover.png')}
+                        onMouseOut={() => this.changeImage('tool_undo', '/icons/tools_undo.png')}
                         onClick={()=>this.props.undo()}/>
                 </div>
 
-                <div id='tool_clear'>
-                    <img className='toolIcon' src='/icons/tools_clear.png'
+                <div >
+                    <img id='tool_clear' className='toolIcon' src='/icons/tools_clear.png'
                         alt='clear'
-                        onClick={() => this.props.clear()}/>
+                        onMouseOver={() => this.changeImage('tool_clear', '/icons/tools_clear_hover.png')}
+                        onMouseOut={() => this.changeImage('tool_clear', '/icons/tools_clear.png')}
+                        onClick={() => {
+                            this.changeImage('tool_clear', '/icons/tools_clear_select.png')
+                            this.props.clear()
+                            this.props.returnToBrush()
+                        
+                            this.resetSelect();
+                            this.setState({ mode: 'draw' })
+                            }}/>
                 </div>
-                <div id='tool_save'>
-                    <img className='toolIcon' src='/icons/tools_save.png'
+                <div >
+                    <img id='tool_save' className='toolIcon' src='/icons/tools_save.png'
                         alt='save'
+                        onMouseOver={() => this.changeImage('tool_save', '/icons/tools_save_hover.png')}
+                        onMouseOut={() => this.changeImage('tool_save', '/icons/tools_save.png')}
                         onClick={() => this.props.save()}/>
                 </div>
 
