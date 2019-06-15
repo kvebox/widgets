@@ -24,7 +24,8 @@ class Canvas extends React.Component {
             history: [],
             history2: [],
             height: CANVAS_HEIGHT,
-            width: CANVAS_WIDTH
+            width: CANVAS_WIDTH,
+            mode: 'draw'
             // history2: []
         };
 
@@ -37,6 +38,7 @@ class Canvas extends React.Component {
         this.returnToBrush = this.returnToBrush.bind(this);
         this.save = this.save.bind(this);
         this.undo = this.undo.bind(this);
+        this.changeState = this.changeState.bind(this);
     }
 
  
@@ -48,6 +50,7 @@ class Canvas extends React.Component {
     
     componentDidUpdate(){
         document.addEventListener('mouseup', this.handleMouseUp);
+
     }
     
     handleMouseUp() {
@@ -60,24 +63,26 @@ class Canvas extends React.Component {
     }
 
     draw(e){
+        if (this.state.mode == 'erase') this.setState({strokeStyle: '#fff'});
+
         if (this.state.isDrawing && this.drawArea.current.contains(e.target)) {
-        let canvas = document.getElementById('canvas');
-        let ctx = canvas.getContext('2d');
-        ctx.strokeStyle = this.state.strokeStyle;
-        ctx.lineJoin = 'round';
-        ctx.lineCap = 'round';
-        ctx.lineWidth = this.state.lineWidth;
-        ctx.beginPath();
-        ctx.moveTo(this.lastX, this.lastY);
-        ctx.lineTo(e.offsetX, e.offsetY);
-        ctx.stroke();
-        // this.setState({history : (ctx.save())});
-        [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
-        // console.log(ctx);
-        this.historyStack.push(this.save());
-        this.setState({history2: this.historyStack});
-        this.setState({history: this.save()});
-        // console.log(this.historyStack);
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+            ctx.strokeStyle = this.state.strokeStyle;
+            ctx.lineJoin = 'round';
+            ctx.lineCap = 'round';
+            ctx.lineWidth = this.state.lineWidth;
+            ctx.beginPath();
+            ctx.moveTo(this.lastX, this.lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            // this.setState({history : (ctx.save())});
+            [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+            // console.log(ctx);
+            // this.historyStack.push(this.save());
+            // this.setState({history2: this.historyStack});
+            this.setState({history: this.save()});
+            // console.log(this.historyStack);
         }
 
     }
@@ -117,8 +122,10 @@ class Canvas extends React.Component {
         myImg.src = imgsrc;
     }
 
-    // undo(){
-    // }
+    changeState(mode){
+        this.setState({mode: mode});
+    }
+
 
     clear(){
         const canvas = document.getElementById('canvas');
@@ -132,6 +139,7 @@ class Canvas extends React.Component {
                 <div id='canvasLayout'>
                 
                 <Toolbar 
+                    changeState={this.changeState}
                     undo={this.undo}
                     save={this.save}
                     changeColor={this.changeColor}

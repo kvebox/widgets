@@ -43,8 +43,12 @@ class Toolbar extends React.Component {
         this.setState({mode: 'draw'});
     }
 
-    componentDidUpdate(){
-        // document.removeEventListener('click', this.hideModal);
+    componentDidUpdate(prevprops){
+        // console.log(prevprops);
+        if (prevprops.mode !== this.props.mode) {
+            this.setState({ mode: this.props.mode });
+        }
+        document.removeEventListener('click', this.hideModal);
     }
 
     showModal(){
@@ -56,12 +60,13 @@ class Toolbar extends React.Component {
         img.setAttribute('src', imageLink);
     }
 
-    // unHover(element, imageLink){
-    //     element.setAttribute('src', imageLink);
-    // }
+    setModeProperties(mode){
+        this.props.changeState(mode)
+    }
 
 
     render() {
+        
         return (
             <div id='canvasToolbarContainer'>
                 {(this.state.modal) ? <ToolBrush 
@@ -78,6 +83,7 @@ class Toolbar extends React.Component {
                             (this.state.mode !== 'draw') ? () => this.changeImage('tool_brushSize', '/icons/tools_draw.png') : this.changeImage('tool_brushSize', '/icons/tools_draw_select.png')}
                         onClick={() => {
                         this.resetSelect()
+                        this.setModeProperties({ mode: 'draw' })
                         this.setState({mode: 'draw'});
                         this.changeImage('tool_brushSize', '/icons/tools_draw_select.png')
                         this.props.returnToBrush()}} />
@@ -94,7 +100,9 @@ class Toolbar extends React.Component {
                             : this.changeImage('tool_eraser', '/icons/tools_erase_select.png')}
                         onClick={() => {
                         this.resetSelect();
+                        this.setModeProperties('erase')
                         this.setState({ mode: 'erase' })
+                        // this.changeState('erase');
                         this.changeImage('tool_eraser', '/icons/tools_erase_select.png')
                         this.props.changeColor('#fff')} }/>
                 </div>
