@@ -2,7 +2,6 @@ apple
 orange
 banana
 grapefruit
-pineapple 
+pineapple
 watermelon
 grapes
-
