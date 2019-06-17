@@ -17,8 +17,8 @@ class Toolbar extends React.Component {
     }
 
     resetSelect(){
-        document.getElementById('tool_brushSize').setAttribute('src', '/icons/tools_draw.png');
-        document.getElementById('tool_eraser').setAttribute('src', '/icons/tools_erase.png');
+        document.getElementById('tool_draw').setAttribute('src', '/icons/tools_draw.png');
+        document.getElementById('tool_erase').setAttribute('src', '/icons/tools_erase.png');
         document.getElementById('tool_undo').setAttribute('src', '/icons/tools_undo.png');
         document.getElementById('tool_fill').setAttribute('src', '/icons/tools_fill.png');
         document.getElementById('tool_save').setAttribute('src', '/icons/tools_save.png');
@@ -39,7 +39,7 @@ class Toolbar extends React.Component {
     }
 
     componentDidMount(){
-        document.getElementById('tool_brushSize').setAttribute('src', '/icons/tools_draw_select.png');
+        document.getElementById('tool_draw').setAttribute('src', '/icons/tools_draw_select.png');
         this.setState({mode: 'draw'});
     }
 
@@ -64,6 +64,13 @@ class Toolbar extends React.Component {
         this.props.changeState(mode)
     }
 
+    setMode(mode){
+        this.resetSelect();
+        this.props.changeState(mode);
+        this.setState({ mode: `${mode}` });
+        this.changeImage(`tool_${mode}`, `/icons/tools_${mode}_select.png`);
+    }
+
 
     render() {
         
@@ -74,37 +81,30 @@ class Toolbar extends React.Component {
                     changeStrokeSize={this.changeStrokeSize}/> : ''}
 
                 <div >
-                    <img id='tool_brushSize' className='toolIcon' src='/icons/tools_draw.png'
+                    <img id='tool_draw' className='toolIcon' src='/icons/tools_draw.png'
                         alt='brush'
                         onMouseOver={(this.state.mode !== 'draw') ?
-                            () => this.changeImage('tool_brushSize', '/icons/tools_draw_hover.png')
+                            () => this.changeImage('tool_draw', '/icons/tools_draw_hover.png')
                             : function () {}}
                         onMouseOut={
-                            (this.state.mode !== 'draw') ? () => this.changeImage('tool_brushSize', '/icons/tools_draw.png') : this.changeImage('tool_brushSize', '/icons/tools_draw_select.png')}
+                            (this.state.mode !== 'draw') ? () => this.changeImage('tool_draw', '/icons/tools_draw.png') : this.changeImage('tool_draw', '/icons/tools_draw_select.png')}
                         onClick={() => {
-                        this.resetSelect()
-                        this.setModeProperties({ mode: 'draw' })
-                        this.setState({mode: 'draw'});
-                        this.changeImage('tool_brushSize', '/icons/tools_draw_select.png')
-                        this.props.returnToBrush()}} />
+                            this.setMode('draw');
+                            this.props.returnToBrush()}} />
                 </div>
 
                 <div >
-                    <img id='tool_eraser' className='toolIcon' src='/icons/tools_erase.png'
+                    <img id='tool_erase' className='toolIcon' src='/icons/tools_erase.png'
                         alt='erase'
                         onMouseOver={(this.state.mode !== 'erase') ? 
-                            () => this.changeImage('tool_eraser', '/icons/tools_erase_hover.png')
+                            () => this.changeImage('tool_erase', '/icons/tools_erase_hover.png')
                             : function(){}}
                         onMouseOut={(this.state.mode !== 'erase') ? 
-                            () => this.changeImage('tool_eraser', '/icons/tools_erase.png') 
-                            : this.changeImage('tool_eraser', '/icons/tools_erase_select.png')}
+                            () => this.changeImage('tool_erase', '/icons/tools_erase.png') 
+                            : this.changeImage('tool_erase', '/icons/tools_erase_select.png')}
                         onClick={() => {
-                        this.resetSelect();
-                        this.setModeProperties('erase')
-                        this.setState({ mode: 'erase' })
-                        // this.changeState('erase');
-                        this.changeImage('tool_eraser', '/icons/tools_erase_select.png')
-                        this.props.changeColor('#fff')} }/>
+                            this.setMode('erase');
+                            this.props.changeColor('#fff')} }/>
                 </div>
 
                 <div >
@@ -140,7 +140,6 @@ class Toolbar extends React.Component {
                             this.changeImage('tool_clear', '/icons/tools_clear_select.png')
                             this.props.clear()
                             this.props.returnToBrush()
-                        
                             this.resetSelect();
                             this.setState({ mode: 'draw' })
                             }}/>
