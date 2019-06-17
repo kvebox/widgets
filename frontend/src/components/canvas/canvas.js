@@ -63,7 +63,7 @@ class Canvas extends React.Component {
     }
 
     draw(e){
-        if (this.state.mode == 'erase') this.setState({strokeStyle: '#fff'});
+        if (this.state.mode === 'erase') this.setState({strokeStyle: '#fff'});
 
         if (this.state.isDrawing && this.drawArea.current.contains(e.target)) {
             let canvas = document.getElementById('canvas');

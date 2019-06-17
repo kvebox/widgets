@@ -10,7 +10,18 @@ class Word extends React.Component {
     }
 
 
-    chooseWord(){
+    readDefault(file){
+        let rawFile = new XMLHttpRequest();
+        rawFile.open('GET', file, false);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4) {
+                if (rawFile.status === 200 || rawFile.status == 0){ 
+                    var allText = rawFile.responseText;
+                    console.log(allText);
+                }
+            }
+        };
+        rawFile.send(null);
         
     }
 
@@ -42,7 +53,7 @@ class Word extends React.Component {
     render() {
         return (
             <div>
-
+                {this.readDefault(defaultFile)}
                 <div id ='text'></div>
                 <input id='fileInput' type='file' onChange={e => this.handleFiles(e)}/>
 
