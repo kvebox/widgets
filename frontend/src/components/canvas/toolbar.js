@@ -41,6 +41,7 @@ class Toolbar extends React.Component {
     componentDidMount(){
         document.getElementById('tool_draw').setAttribute('src', '/icons/tools_draw_select.png');
         this.setState({mode: 'draw'});
+        // document.addEventListener('click', this.eyedropper);
     }
 
     componentDidUpdate(prevprops){
@@ -54,6 +55,8 @@ class Toolbar extends React.Component {
     showModal(){
         this.setState({modal: true});
     }
+
+
 
     changeImage(element, imageLink){
         let img = document.getElementById(`${element}`);
@@ -110,9 +113,16 @@ class Toolbar extends React.Component {
                 <div >
                     <img id='tool_eyedropper' className='toolIcon' src='/icons/tools_eyedropper.png'
                         alt='eyedropper'
-                        onMouseOver={() => this.changeImage('tool_eyedropper', '/icons/tools_eyedropper_hover.png')}
-                        onMouseOut={() => this.changeImage('tool_eyedropper', '/icons/tools_eyedropper.png')}
-                         />
+                        onMouseOver={(this.state.mode !== 'eyedropper') ? 
+                            () => this.changeImage('tool_eyedropper', '/icons/tools_eyedropper_hover.png')
+                            : function(){}}
+                        onMouseOut={(this.state.mode !== 'eyedropper') ? 
+                            () => this.changeImage('tool_eyedropper', '/icons/tools_eyedropper.png')
+                            : this.changeImage('tool_eyedropper', '/icons/tools_eyedropper_select.png')}
+                        onClick={() => {
+                            this.setMode('eyedropper');
+                        }}
+                        />
                 </div>
 
                 <div >

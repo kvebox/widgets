@@ -89,6 +89,7 @@ class Game extends React.Component {
             console.log('win');
             return true;
         } 
+        this.setState({guess: '' });
         console.log('lose');
         return false;
     }
@@ -101,7 +102,6 @@ class Game extends React.Component {
     handleSubmit(e){
         e.preventDefault();
         this.win();
-        this.setState({guess: ''});
     }
 
     render() {

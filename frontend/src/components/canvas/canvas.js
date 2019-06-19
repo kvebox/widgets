@@ -39,12 +39,14 @@ class Canvas extends React.Component {
         this.save = this.save.bind(this);
         this.undo = this.undo.bind(this);
         this.changeState = this.changeState.bind(this);
+        this.eyedropper = this.eyedropper.bind(this);
     }
 
  
     componentDidMount(){
         document.addEventListener('mousedown', this.handleMouseDown);
         document.addEventListener('mousemove', this.draw);
+        document.addEventListener('click', this.eyedropper);
     }
 
     
@@ -65,7 +67,8 @@ class Canvas extends React.Component {
     draw(e){
         if (this.state.mode === 'erase') this.setState({strokeStyle: '#fff'});
 
-        if (this.state.isDrawing && this.drawArea.current.contains(e.target)) {
+        if ((this.state.mode ==='erase' || this.state.mode === 'draw') 
+        && this.state.isDrawing && this.drawArea.current.contains(e.target)) {
             let canvas = document.getElementById('canvas');
             let ctx = canvas.getContext('2d');
             ctx.strokeStyle = this.state.strokeStyle;
@@ -78,11 +81,9 @@ class Canvas extends React.Component {
             ctx.stroke();
             // this.setState({history : (ctx.save())});
             [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
-            // console.log(ctx);
             // this.historyStack.push(this.save());
             // this.setState({history2: this.historyStack});
             this.setState({history: this.save()});
-            // console.log(this.historyStack);
         }
 
     }
@@ -107,8 +108,17 @@ class Canvas extends React.Component {
         var dataURL = canvas.toDataURL();
         return dataURL;
         // console.log(dataURL);
-
     }
+
+    eyedropper(e) {
+        if (this.state.mode === 'eyedropper' && this.drawArea.current.contains(e.target)) {
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+            let color = ctx.getImageData(e.offsetX, e.offsetY, 1, 1);
+            let rgba = `rgba(${color.data[0]},${color.data[1]},${color.data[2]},${color.data[3]})`;
+            if (rgba !== 'rgba(0,0,0,0)') this.changeColor(rgba);
+        }
+    } 
 
     undo(){
         let canvas = document.getElementById('canvas');
