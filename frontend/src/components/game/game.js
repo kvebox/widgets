@@ -85,7 +85,7 @@ class Game extends React.Component {
     }
 
     win(){
-        if (this.state.word == this.state.guess) {
+        if (this.state.word === this.state.guess) {
             console.log('win');
             return true;
         } 

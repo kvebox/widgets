@@ -1,23 +1,55 @@
 import React from 'react';
 import './chat.css';
+import socketIOClient from 'socket.io-client';
+
 
 
 class ChatBoard extends React.Component {
-    // constructor(props) {
-        // super(props);
+    constructor() {
+        super();
+        this.state = {
+            endpoint: "localhost:4001",
 
-    // }
+            ///
+            color: 'white'
+            ///
+
+        };
+    }
+
+    // sending sockets
+    send(){
+        const socket = socketIOClient(this.state.endpoint);
+        socket.emit('change color', this.state.color) // change 'red' to this.state.color
+    }
+
+    ///
+
+    // adding the function
+    setColor(color){
+        this.setState({ color })
+    }
+
+    ///
 
     render() {
+        // testing for socket connections
+
+        const socket = socketIOClient(this.state.endpoint);
+        socket.on('change color', (col) => {
+            document.body.style.backgroundColor = col
+        })
+
         return (
-            <div id='chatBoardContainer'>
-                <ul id='messages'></ul>
-                <form action=''>
-                    <input id='m' autoComplete='off'/>
-                    <button>Send</button>
-                </form>
+            <div style={{ textAlign: "center" }}>
+                <button onClick={() => this.send()}>Change Color</button>
+
+
+                <button id="blue" onClick={() => this.setColor('blue')}>Blue</button>
+                <button id="red" onClick={() => this.setColor('red')}>Red</button>
+
             </div>
-        );
+        )
     }
 }
 export default ChatBoard;
