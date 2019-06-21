@@ -12,6 +12,7 @@ class ChatBoard extends React.Component {
             endpoint: "localhost:4001",
             message: ''
         };
+        this.sendMessages = this.sendMessages.bind(this);
     }
 
 
@@ -20,9 +21,11 @@ class ChatBoard extends React.Component {
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
 
+
         socket.on('chat message', function (msg) {
             $('#messages').append($('<li>').text(msg));
         });
+
     }
 
     handleUpdate(e) {
@@ -37,29 +40,22 @@ class ChatBoard extends React.Component {
 
     render() {
 
-
         return (
             <div className='chatBoardContainer'>
                 <div className='messagesContainer'>
                     <ul id='messages' className='messages'></ul>
-                    <div ref={(el) => { this.messagesEnd = el; }}>
-                        hi
-                    </div>
+                    <div ref={(el) => { this.messagesEnd = el; }}></div>
                 </div>
 
-                <form className='messagesForm' action=''>
+                <form className='messagesForm' action=''
+                    onSubmit={e => {this.sendMessages(e)
+                                    this.scrollToBottom()}}>
                     <input className='m' id='m'
                         autoComplete='off'
                         onChange={e => this.handleUpdate(e)}
                         placeholder='Type your guess here..'
                     />
-                    <button className='sendButton'
-                        onClick={
-                            e => {
-                                this.sendMessages()
-                                this.scrollToBottom()
-                            }}
-                    >Send</button>
+                    <button className='sendButton'>Send</button>
                 </form>
             </div>
 
