@@ -10,8 +10,10 @@ class MainPage extends React.Component {
         return (
             <div id='mainContainer'>
                 <Game />
-                <Canvas />
-                <ChatBoard />
+                <div id="contentContainer">
+                    <Canvas />
+                    <ChatBoard />
+                </div>
             </div>
         );
     }
