@@ -1,8 +1,10 @@
 import React from 'react';
 import Canvas from '../canvas/canvas';
 import ChatBoard from '../chat/chatBoard';
+// import ChatBoard from '../chat/chatBoard.1';
 import Game from '../game/game';
 import './main.css';
+
 
 class MainPage extends React.Component {
 

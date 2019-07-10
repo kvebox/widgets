@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const db = require('./config/keys').mongoURI;
 const bodyParser = require('body-parser');
+const http = require('http');
+const socketIO = require('socket.io');
 
 const passport = require('passport');
 app.use(passport.initialize());
@@ -26,3 +28,44 @@ app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
+
+
+app.use('/', express.static('frontend'));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+});
+
+// our localhost port
+const socketPort = 4001;
+
+// our server instance
+const server = http.createServer(app);
+
+// This creates our socket using the instance of the server
+const io = socketIO(server);
+
+// This is what the socket.io syntax is like, we will work this later
+
+
+io.set('origins', '*:*');
+
+io.on('connection', socket => {
+    console.log('New client connected');
+
+    socket.on('chat message', msg => {
+        socket.emit('chat message', msg);
+        console.log('sent');
+    });
+
+
+    // disconnect is fired when a client leaves the server
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
+
+server.listen(socketPort, function (err) {
+    if (err) throw err;
+    console.log(`Listening on port ${socketPort}`);
+});

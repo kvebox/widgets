@@ -2,18 +2,19 @@ import React from 'react';
 import './chat.css';
 import socketIOClient from 'socket.io-client';
 import $ from 'jquery';
-
+import { connect } from './testUtil';
 
 
 class ChatBoard extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            endpoint: 'localhost:4001',
-            message: ''
-        };
-        this.sendMessages = this.sendMessages.bind(this);
+
+        // this.state = {
+        //     endpoint: 'localhost:4001',
+        //     message: ''
+        // };
+        // this.sendMessages = this.sendMessages.bind(this);
     }
 
 
@@ -48,17 +49,19 @@ class ChatBoard extends React.Component {
     }
 
 
+    componentDidMount(){
+        connect(message => {
+            console.log(message);
+        });
+    }
 
 
-    
-    
     render() {
         // console.log(this.state.chatHistory);
         return (
             <div className='chatBoardContainer'>
                 <div className='messagesContainer'>
                     <ul id='messages' className='messages'>
-                        {this.state.chatHistory}
                     </ul>
                     <div ref={(el) => { this.messagesEnd = el; }}></div>
                 </div>
