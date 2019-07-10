@@ -9,33 +9,38 @@ class ChatBoard extends React.Component {
     constructor(props) {
         super(props);
 
+        
         this.state = {
             endpoint: 'localhost:4001',
             message: ''
         };
+        this.socket = socketIOClient(this.state.endpoint);
         this.sendMessages = this.sendMessages.bind(this);
+    }
+
+    componentDidMount(){
+        this.socket.on('chat message', (msg) => {
+            $('#messages').append($('<li>').text(msg));
+        });
+    }
+
+    componentWillUnmount(){
+        this.socket.off('chat message');
+    }
+
+    componentDidUpdate(){
+        this.scrollToBottom();
     }
 
 
     sendMessages(e) {
-        // if (!this.state.message) return;
-
-        // this.props.onSendMessage(this.state.input, (err) => {
-        //     if (err) return console.error(err);
-        //     return this.setState({message: ''});
-        // });
         e.preventDefault();
-        const socket = socketIOClient(this.state.endpoint);
-        socket.emit('chat message', this.state.message);
-        // socket.emit('chat message', this.state.message);
+        this.socket.emit('chat message', $('#m').val());
         $('#m').val('');
         // this.setState({message: ''});
-
-        socket.on('chat message', (msg) => {
-            $('#messages').append($('<li>').text(msg));
-        });
-
+        
     }
+
 
     handleUpdate(e) {
         this.setState({ message: e.target.value });

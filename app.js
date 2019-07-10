@@ -48,7 +48,7 @@ const io = socketIO(server);
 // This is what the socket.io syntax is like, we will work this later
 
 
-io.set('origins', '*:*');
+// io.set('origins', '*:*');
 // const namespace = io.of('/testRoom');
 
 io.on('connection', function(socket){
@@ -58,17 +58,19 @@ io.on('connection', function(socket){
 
     socket.on('chat message', msg => {
         socket.to('default').emit('chat message', msg);
-        // socket.emit('chat message', msg);
-        // socket.broadcast.to(id).emit('my message', msg);
+    //     // socket.emit('chat message', msg);
+    //     // socket.broadcast.emit('hi')
+        // socket.to('default').broadcast.emit('chat message', msg);
     });
 
 
     // disconnect is fired when a client leaves the server
     socket.on('disconnect', () => {
-        socket.leave('default');
+        // socket.leave('default');
         console.log('user disconnected');
     });
 });
+
 
 server.listen(socketPort, function (err) {
     if (err) throw err;
