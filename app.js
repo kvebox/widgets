@@ -49,18 +49,23 @@ const io = socketIO(server);
 
 
 io.set('origins', '*:*');
+// const namespace = io.of('/testRoom');
 
-io.on('connection', socket => {
-    console.log('New client connected');
+io.on('connection', function(socket){
+// namespace.on('connection', function(socket){
+
+    socket.join('default');
 
     socket.on('chat message', msg => {
-        socket.emit('chat message', msg);
-        console.log('sent');
+        socket.to('default').emit('chat message', msg);
+        // socket.emit('chat message', msg);
+        // socket.broadcast.to(id).emit('my message', msg);
     });
 
 
     // disconnect is fired when a client leaves the server
     socket.on('disconnect', () => {
+        socket.leave('default');
         console.log('user disconnected');
     });
 });

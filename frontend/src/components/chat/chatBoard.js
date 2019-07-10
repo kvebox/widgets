@@ -18,7 +18,7 @@ class ChatBoard extends React.Component {
 
 
     sendMessages(e) {
-        if (!this.state.message) return;
+        // if (!this.state.message) return;
 
         // this.props.onSendMessage(this.state.input, (err) => {
         //     if (err) return console.error(err);
@@ -27,12 +27,11 @@ class ChatBoard extends React.Component {
         e.preventDefault();
         const socket = socketIOClient(this.state.endpoint);
         socket.emit('chat message', this.state.message);
+        // socket.emit('chat message', this.state.message);
         $('#m').val('');
-        this.setState({message: ''});
+        // this.setState({message: ''});
 
         socket.on('chat message', (msg) => {
-            // this.messages.push(msg);
-            // return this.setState({messageArray: this.messages});
             $('#messages').append($('<li>').text(msg));
         });
 
@@ -65,7 +64,7 @@ class ChatBoard extends React.Component {
 
                 <form className='messagesForm' action=''
                     onSubmit={e => {this.sendMessages(e)
-                                    // this.scrollToBottom()
+                                    this.scrollToBottom()
                                     }}>
                     <input className='m' id='m'
                         autoComplete='off'
