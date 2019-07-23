@@ -36,6 +36,7 @@ class ChatBoard extends React.Component {
     sendMessages(e) {
         e.preventDefault();
         this.socket.emit('chat message', $('#m').val());
+        $('#messages').append($('<li>').text($('#m').val()));
         $('#m').val('');
         // this.setState({message: ''});
         
