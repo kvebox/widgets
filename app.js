@@ -63,6 +63,10 @@ io.on('connection', function(socket){
         // socket.to('default').broadcast.emit('chat message', msg);
     });
 
+    socket.on('sketch update', image => {
+        socket.to('default').emit('sketch update', image);
+    });
+
 
     // disconnect is fired when a client leaves the server
     socket.on('disconnect', () => {

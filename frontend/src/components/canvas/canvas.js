@@ -1,5 +1,6 @@
 import React from 'react';
 import './canvas.css';
+import socketIOClient from 'socket.io-client';
 import Toolbar from './toolbar';
 import ColorWheel from './colorWheel';
 import {CANVAS_HEIGHT, CANVAS_WIDTH} from '../../constants';
@@ -16,7 +17,9 @@ class Canvas extends React.Component {
         this.historyStack = [];
 
         // canvas drawing style
-        this.state ={
+        this.state = {
+            endpoint: 'localhost:4001',
+            saveState: '',
             isDrawing: false,
             strokeStyle: `#000`,
             lineWidth: 2,
@@ -28,6 +31,9 @@ class Canvas extends React.Component {
             mode: 'draw'
             // history2: []
         };
+
+        this.socket = socketIOClient(this.state.endpoint);
+        this.sendImage = this.sendImage.bind(this);
 
         // binding functions
         this.handleMouseDown = this.handleMouseDown.bind(this);
@@ -47,12 +53,24 @@ class Canvas extends React.Component {
         document.addEventListener('mousedown', this.handleMouseDown);
         document.addEventListener('mousemove', this.draw);
         document.addEventListener('click', this.eyedropper);
+
+        this.socket.on('sketch update', (image) => {
+            let canvas = document.getElementById('canvas');
+            let ctx = canvas.getContext('2d');
+            var myImg = new Image();
+            let imgsrc = image;
+            myImg.onload = function () {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(myImg, 0, 0);
+            };
+            myImg.src = imgsrc;
+        });
     }
 
     
     componentDidUpdate(){
         document.addEventListener('mouseup', this.handleMouseUp);
-
+        this.socket.off('sketch update');
     }
     
     handleMouseUp() {
@@ -83,7 +101,8 @@ class Canvas extends React.Component {
             [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
             // this.historyStack.push(this.save());
             // this.setState({history2: this.historyStack});
-            this.setState({history: this.save()});
+            // this.setState({history: this.save()});
+            this.sendImage();
         }
 
     }
@@ -103,9 +122,18 @@ class Canvas extends React.Component {
         this.setState({lineWidth: size});
     }
 
+    sendImage(){
+        let canvas = document.getElementById('canvas');
+        var dataURL = canvas.toDataURL();
+        this.setState({ saveState: dataURL });
+
+        this.socket.emit('sketch update', this.state.saveState);
+    }
+
     save(){
         let canvas = document.getElementById('canvas');
         var dataURL = canvas.toDataURL();
+        this.setState({saveState: dataURL});
         return dataURL;
         // console.log(dataURL);
     }

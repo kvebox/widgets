@@ -9,7 +9,7 @@ class Toolbar extends React.Component {
 
         this.state = {
             toolType: '',
-            modal: true,
+            modal: false,
             mode: ''
         };
         this.changeStrokeSize = this.changeStrokeSize.bind(this);
@@ -83,7 +83,7 @@ class Toolbar extends React.Component {
                     lineWidth = {this.props.lineWidth}
                     changeStrokeSize={this.changeStrokeSize}/> : ''}
 
-                <div >
+                <div id='toolbar'>
                     <img id='tool_draw' className='toolIcon' src='/icons/tools_draw.png'
                         alt='brush'
                         onMouseOver={(this.state.mode !== 'draw') ?
