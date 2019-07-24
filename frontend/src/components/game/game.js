@@ -112,12 +112,12 @@ class Game extends React.Component {
 
                 </ul>
 
-                <form onSubmit={(e) => this.handleSubmit(e)}>
+                {/* <form onSubmit={(e) => this.handleSubmit(e)}>
                     <input type='text'
                            placeholder={this.state.guess}
                            onChange={e => this.handleChange(e)}>
                     </input>
-                </form>
+                </form> */}
                 {/* <input id='fileInput' type='file' onChange={e => this.handleFiles(e)}/> */}
 
             </div>

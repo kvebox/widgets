@@ -1,12 +1,19 @@
 #playersContainer {
     background: #515151;
-    width: 250px;
+    width: 350px;
     height: 100%;
 }
 
 #exitButton {
-    width: 100px;
+    width: 200px;
     height: 50px;
     background: #D9DC58;
-    color: white;
+    color: black;
+    font-size: 30px;
+    margin: 0 auto;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    padding: 10px 25px;
+    line-height: 50px;
 }

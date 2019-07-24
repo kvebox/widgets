@@ -72,7 +72,7 @@ class ColorWheel extends React.Component {
     render() {
         return (
             <div id='colorCanvasHolder'>
-                <canvas ref={this.node} id='colorWheel' width='100' height='100' />
+                <canvas ref={this.node} id='colorWheel' width='150' height='150'/>
             </div>
         )
     }
