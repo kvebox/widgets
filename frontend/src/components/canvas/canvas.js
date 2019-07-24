@@ -174,8 +174,13 @@ class Canvas extends React.Component {
     render() {
         return (
             <div >
-                <div id='canvasLayout'>
+
+            <canvas id='canvas'
+                ref={this.drawArea}
+                height={`${this.state.height}`}
+                width={`${this.state.width}`} />
                 
+            <div id='canvasLayout'>
                 <Toolbar 
                     changeState={this.changeState}
                     undo={this.undo}
@@ -185,10 +190,6 @@ class Canvas extends React.Component {
                     returnToBrush={this.returnToBrush}
                     lineWidth = {this.state.lineWidth}
                     clear = {this.clear}/>
-                <canvas id='canvas'
-                        ref={this.drawArea} 
-                        height={`${this.state.height}`} 
-                        width={`${this.state.width}`}/>
                 <ColorWheel
                     changeColor={this.changeColor} />
                 </div>

@@ -1,22 +1,24 @@
 .chatBoardContainer {
-    border: 1px solid black; 
-    width: 300px;
+    border: 1px solid #398886; 
+    width: 500px;
     margin: 0 auto;
     padding: 0;
-    box-sizing: border-box;
-    height: 400px;
+    /* box-sizing: border-box; */
+    /* height: 400px; */
     overflow: scroll;
     position: relative;
 }
 
 .messagesForm {
-    padding: 5px;
+    padding: 15px 40px;
     position: absolute;
+    margin-bottom: 10px;
     bottom: 0;
+    /* margin: 20px 10px; */
     width: 100%;
-    display: flex;
     box-sizing: border-box;
     /* margin: 5px; */
+    border-top: 1px solid #398886;
 }
 
 .messages {
@@ -27,43 +29,48 @@
 
 .messages li {
     padding: 5px 10px;
-    margin: 0px 5px;
+    color: white;
 }
 
 .messages li:nth-child(odd) {
-    background: #eee;
+    background: #216C6A;
 }
 
 
 .m {
     width: 100%;
-    padding: 5px;
+    /* padding: 5px; */
     font-size: 14px;
     border-radius: 5px;
     border-style: none;
-    border: 1px solid lightgray;
-    /* outline: 1px solid lightblue; */
+    border: 1px solid #398886;
     overflow: hidden;
+    background: #2C2C2C;
+    height: 75px;
+    /* margin: 10px 25px; */
 }
 
 .m:focus {
-    border: 1px solid #0696BB;
+    border: 1px solid #67B89A;
     outline-width: 0px;
 }
 
 .sendButton {
-    background: #5688C1;
-    width: 75px;
-    border-radius: 25px;
+    background: #67B89A;
+    width: 125px;
+    border-radius: 2.5px;
+    height: 40px;
     padding: 5px;
     border: none;
     color: white;
     font-weight: 600;
     margin-left: 5px;
-    font-size: 12px;
+    font-size: 20px;
+    float: right;
+    margin-top: 10px;
 }
 
 .sendButton:hover {
     cursor: pointer;
-    background: #2A71AF;
+    background: #398886;
 }

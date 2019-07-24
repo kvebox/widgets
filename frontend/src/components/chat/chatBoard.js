@@ -52,10 +52,6 @@ class ChatBoard extends React.Component {
         this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
     }
 
-
-
-
-    
     
     render() {
         // console.log(this.state.chatHistory);
@@ -77,7 +73,7 @@ class ChatBoard extends React.Component {
                         onChange={e => this.handleUpdate(e)}
                         placeholder='Type your guess here..'
                     />
-                    <button className='sendButton'>Send</button>
+                    <button className='sendButton'>POST</button>
                 </form>
 
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './canvas.css';
 import ToolBrush from './toolBrush';
-
+// import './toolbar.css';
 
 class Toolbar extends React.Component {
     constructor(props) {

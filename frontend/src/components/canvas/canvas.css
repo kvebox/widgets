@@ -2,21 +2,19 @@
     border-top: 1px solid black;
     border-bottom: 1px solid black;
     margin: 0;
+    background: white;
 }
 
 #canvasToolbarContainer {
-    width: 40px;
+    display: flex;
     margin: 0;
     padding-left: 10px;
-    background: lightgray;
-    border-top: 1px solid black;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
 }
 
 .toolIcon {
-    width: 30px;
-    height: 30px;
+    width: 50px;
+    height: 50px;
+    margin-right: 5px;
 }
 
 .toolIcon:hover {
@@ -27,8 +25,6 @@
 
 #colorWheel {
     margin-top: 10px;
-    /* border: 1px solid black; */
-    background: lightgray;
 }
 
 #colorWheel:hover {
@@ -36,18 +32,11 @@
 }
 #canvasLayout {
     display: flex;
-    /* height: 400px;
-    margin: 0px 10px; */
+    justify-content: space-between;
+    align-items: center;
 } 
 
 #colorCanvasHolder {
-    border-right: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
     padding: 0px 10px;
-    background: lightgray;
 }
 
-#toolbar {
-    margin-top: 10px;
-}
