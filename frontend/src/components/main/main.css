@@ -3,13 +3,22 @@
     display: flex;
 }
 
+#filler {
+    width: 20%;
+    height: 100%;
+    min-width: 200px;
+}
+
 #navContent {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 #mainContent {
     display: flex;
+    border-top: 1px solid #398886;
+    margin-top: 75px;
 }
 
 #contentContainer {

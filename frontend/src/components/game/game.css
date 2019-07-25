@@ -15,3 +15,21 @@
     font-size: 30px;
     color: white;
 }
+
+#roundInfoContainer {
+    margin-top: 100px;
+}
+
+#stopwatch {
+    font-size: 100px;
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    line-height: 100px;
+}
+
+#round {
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}

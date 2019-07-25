@@ -13,6 +13,7 @@ class MainPage extends React.Component {
         return (
             <div id='mainContainer'>
                     <PlayerNav /> 
+                <div id='filler'></div>
                 <div id='navContent'>
                     <HeaderNav />
                     <div id='mainContent'>
@@ -20,8 +21,7 @@ class MainPage extends React.Component {
                             <Game />
                             <Canvas />
                         </div>
-                            <ChatBoard />
-                        {/* </div> */}
+                        <ChatBoard />
                     </div>
                 </div>
             </div>

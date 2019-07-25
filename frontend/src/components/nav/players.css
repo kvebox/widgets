@@ -1,7 +1,9 @@
 #playersContainer {
     background: #515151;
-    width: 350px;
+    width: 20%;
     height: 100%;
+    position: fixed;
+    min-width: 200px;
 }
 
 #exitButton {
