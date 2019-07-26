@@ -13,10 +13,10 @@ class MainPage extends React.Component {
         return (<>
             <div id='mainContainer'>
                 {/* <div id='filler'></div> */}
-                {/* <div id='navContentContainer'> */}
-                {/* <PlayerNav />  */}
-                {/* <div id='navContent'> */}
-                    {/* <HeaderNav /> */}
+                <div id='navContentContainer'>
+                <PlayerNav /> 
+                <div id='navContent'>
+                    <HeaderNav />
                     <div id='mainContent'>
                         <div id="contentContainer">
                             <Game />
@@ -24,8 +24,8 @@ class MainPage extends React.Component {
                         </div>
                         <ChatBoard />
                     </div>
-                {/* </div>
-            </div> */}
+                </div>
+            </div>
             </div>
             </>
         );

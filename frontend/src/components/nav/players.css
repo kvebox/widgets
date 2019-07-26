@@ -2,8 +2,8 @@
     background: #515151;
     min-width: 200px;
     width: 20%;
-    height: 100%;
-    /* position: fixed; */
+    height: 100vh;
+    /* position: absolute; */
     /* display: inline-block; */
 }
 
@@ -19,4 +19,6 @@
     font-weight: 600;
     padding: 10px 15px;
     line-height: 20px;
+    top: 0;
+    /* position: absolute; */
 }
