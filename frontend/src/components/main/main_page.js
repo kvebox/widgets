@@ -10,12 +10,13 @@ import './main.css';
 class MainPage extends React.Component {
 
     render() {
-        return (
+        return (<>
             <div id='mainContainer'>
-                    <PlayerNav /> 
-                <div id='filler'></div>
-                <div id='navContent'>
-                    <HeaderNav />
+                {/* <div id='filler'></div> */}
+                {/* <div id='navContentContainer'> */}
+                {/* <PlayerNav />  */}
+                {/* <div id='navContent'> */}
+                    {/* <HeaderNav /> */}
                     <div id='mainContent'>
                         <div id="contentContainer">
                             <Game />
@@ -23,8 +24,10 @@ class MainPage extends React.Component {
                         </div>
                         <ChatBoard />
                     </div>
-                </div>
+                {/* </div>
+            </div> */}
             </div>
+            </>
         );
     }
 }

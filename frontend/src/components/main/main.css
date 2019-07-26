@@ -1,36 +1,57 @@
 #mainContainer {
     background: #181818;
     display: flex;
+    height: 100%;
+    flex-flow: column;
 }
 
 #filler {
     width: 20%;
     height: 100%;
-    min-width: 200px;
+    min-width: 250px;
+}
+
+#navContentContainer {
+    display: flex;
+    /* height: 100%; */
+    /* flex-direction: column; */
 }
 
 #navContent {
     display: flex;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
+    align-content: space-around;
+    flex: 1 1 auto;
 }
 
 #mainContent {
     display: flex;
+    /* justify-content: space-between; */
     border-top: 1px solid #398886;
     margin-top: 75px;
+    vertical-align: baseline;
+    width: 100%;
+    padding-left: 20px;
+    justify-content: flex-end;
+    /* justify-content: flex-end; */
 }
 
 #contentContainer {
     display: flex;
     flex-direction: column;
-
+    width: calc(100% - 543.5px);
+    min-width: 600px;
 }
 
 body {
     margin: 0;
+    height: 100%;
 }
 
 html {
     /* background: #181818; */
     font-family: "Avenir Next";
+    height: 100%;
 }
