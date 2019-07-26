@@ -32,7 +32,8 @@
     border-top: 1px solid #398886;
     margin-top: 75px;
     vertical-align: baseline;
-    width: 100%;
+    width: 100vw;
+    height: 90vh;
     padding-left: 20px;
     justify-content: flex-end;
     /* justify-content: flex-end; */
