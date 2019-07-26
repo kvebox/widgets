@@ -4,7 +4,7 @@ import socketIOClient from 'socket.io-client';
 import Toolbar from './toolbar';
 import ColorWheel from './colorWheel';
 import {CANVAS_HEIGHT, CANVAS_WIDTH} from '../../constants';
-
+import ToolBrush from './toolBrush';
 
 class Canvas extends React.Component {
     constructor(props) {
@@ -179,7 +179,15 @@ class Canvas extends React.Component {
                 ref={this.drawArea}
                 height={`${this.state.height}`}
                 width={`${this.state.width}`} />
-                
+            
+            <div id='canvasTools'>
+                    <button id='saveButton'>SAVE</button>   
+                <div id='brushSizer'>
+                    <div id='brushSizeLabel'>Brush Size:</div>
+                    <ToolBrush 
+                        changeStrokeSize={this.changeStrokeSize}/>
+                </div>
+            </div>
             <div id='canvasLayout'>
                 <Toolbar 
                     changeState={this.changeState}

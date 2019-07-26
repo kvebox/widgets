@@ -12,7 +12,6 @@
 #navContent {
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
 #mainContent {
@@ -28,7 +27,10 @@
 }
 
 body {
-    background: #181818;
-    font-family: "Avenir Next";
+    margin: 0;
 }
 
+html {
+    /* background: #181818; */
+    font-family: "Avenir Next";
+}

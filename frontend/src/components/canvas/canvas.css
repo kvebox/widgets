@@ -14,8 +14,8 @@
 }
 
 .toolIcon {
-    width: 75px;
-    height: 75px;
+    width: 50px;
+    height: 50px;
     margin-right: 5px;
 }
 
@@ -43,3 +43,56 @@
     margin-left: 10px;
 }
 
+#saveButton {
+    background: #67B89A;
+    border: none;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 2.5px;
+    padding: 2px 15px;
+    font-size: 14px;
+}
+
+#brushSizer {
+    display: flex;
+    /* justify-content: flex-end; */
+}
+
+#canvasTools {
+    display: flex;
+    justify-content: space-between;
+}
+
+#brushSizeLabel {
+    color: white;
+    margin-right: 10px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6.5px;
+    outline: none;
+    background: linear-gradient(to right,#216C6A,#67B89A);
+    width: 300px;
+}
+
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #D8D8D8; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 15px;
+}
+
+.slider::-moz-range-thumb {
+    width: 15px; /* Set a specific slider handle width */
+    height: 15px; /* Slider handle height */
+    background: #D8D8D8; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 15px;
+}
