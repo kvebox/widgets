@@ -42,9 +42,9 @@ class ColorWheel extends React.Component {
             // in radians
             // arc path : (x, y, r, sAngle, eAngle, counterclockwise)
             ctx.fillStyle = COLORS_HASH[i];
-            ctx.moveTo(50, 50);
-            ctx.arc(50, 50, 50, segment * i, segment * i + segment);
-            ctx.lineTo(50, 50);
+            ctx.moveTo(75, 75);
+            ctx.arc(75, 75, 75, segment * i, segment * i + segment);
+            ctx.lineTo(75, 75);
             ctx.fill();
         }
     }
